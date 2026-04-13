@@ -35,6 +35,24 @@ WEIGHT_VALENCE = 0.5
 ACOUSTIC_BONUS = 0.5
 
 
+def configure_scoring_baseline() -> None:
+    """Restore default weights (genre strongest, then energy proximity)."""
+    global WEIGHT_GENRE, WEIGHT_MOOD, WEIGHT_ENERGY, WEIGHT_VALENCE, ACOUSTIC_BONUS
+    WEIGHT_GENRE = 2.0
+    WEIGHT_MOOD = 1.0
+    WEIGHT_ENERGY = 1.5
+    WEIGHT_VALENCE = 0.5
+    ACOUSTIC_BONUS = 0.5
+
+
+def configure_scoring_experiment_energy_over_genre() -> None:
+    """Phase 4 experiment: halve genre weight, double energy weight; other weights unchanged."""
+    configure_scoring_baseline()
+    global WEIGHT_GENRE, WEIGHT_ENERGY
+    WEIGHT_GENRE = 1.0
+    WEIGHT_ENERGY = 3.0
+
+
 def _build_score_and_reasons(
     song_genre: str,
     song_mood: str,

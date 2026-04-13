@@ -104,33 +104,27 @@ flowchart TD
 
 ---
 
-## CLI sample output
+## CLI output (multi-profile)
 
-Run from the project root: `python -m src.main`. You should see `Loaded songs:` followed by the default **pop / happy** profile and the top picks with **scores** and **reasons** (each line shows what points were earned). For submissions that ask for a screenshot, capture your own terminal and replace or add an image here.
+From the project root:
 
+```bash
+python -m src.main
+python -m src.main --experiment-weights   # Phase 4: halve genre weight, double energy weight
 ```
-Loaded songs: 20
 
-==========================================================
-  Music Recommender — CLI (default profile)
-==========================================================
+`main.py` prints **`Loaded songs:`**, the active **scoring mode** (baseline vs experiment), then **top 5** picks for each profile:
 
-  Profile: pop / happy  |  energy 0.8  |  valence 0.85
-  ----------------------------------------------------
+1. **High-Energy Pop** — happy pop, very high energy and valence  
+2. **Chill Lofi** — chill lofi, low energy, likes acoustic  
+3. **Deep Intense Rock** — intense rock, high energy, lower valence  
+4. **Edge case** — pop + **melancholic** mood + very high energy (conflicting vibe on purpose)
 
-  1. Sunrise City
-     Neon Echo  ·  pop  ·  happy
-     Final score: 5.46
-     Reasons:
-       • genre match (+2.0)
-       • mood match (+1.0)
-       • energy proximity (+1.47) — target 0.80, song 0.82
-       • valence proximity (+0.495) — target 0.85, song 0.84
-       • produced/electric preference aligned (+0.5)
- ...
-```
+For coursework that asks for **screenshots**, capture your terminal once per profile (four images) and paste them here or next to this section.
 
 **Sorting note:** `recommend_songs` uses `sorted(...)` on a new list of scored rows so the original `songs` catalog is never reordered. Mutating with `.sort()` would sort in place on that working list only — both approaches work; `sorted()` makes it obvious we are building a ranking copy.
+
+**Phase 4 experiment (weights):** With `--experiment-weights`, genre matches add **1.0** instead of **2.0**, and energy proximity is multiplied by **3.0** instead of **1.5**. On *High-Energy Pop*, the ranking stayed the same in our run, but each song’s **energy** line in the reasons grew—so ties and close calls could flip on other profiles or catalogs.
 
 ---
 
@@ -171,11 +165,11 @@ You can add more tests in `tests/test_recommender.py`.
 
 ## Experiments You Tried
 
-Use this section to document the experiments you ran. For example:
+- **Stress profiles:** Four taste dictionaries in `src/main.py` (see CLI section). The adversarial one (melancholic + high energy + pop) surfaces **Gym Hero** first because genre and energy beat mood when almost no song matches the mood label.
+- **Weight shift:** `python -m src.main --experiment-weights` halves **genre** weight and doubles **energy** weight via `configure_scoring_experiment_energy_over_genre()` in `recommender.py`. Compare output to a normal run to see how sensitive rankings are.
+- **Optional follow-up:** Commenting out the mood check (not the default in repo) would show how much the top five rely on the +1 mood bonus—useful if mood labels feel noisy.
 
-- What happened when you changed the weight on genre from 2.0 to 0.5
-- What happened when you added tempo or valence to the score
-- How did your system behave for different types of users
+Deeper write-ups: **[model_card.md](model_card.md)** (evaluation + bias) and **[reflection.md](reflection.md)** (profile-vs-profile narrative).
 
 ---
 
@@ -195,9 +189,9 @@ You will go deeper on this in your model card.
 
 ## Reflection
 
-Read and complete `model_card.md`:
+Read and complete `model_card.md` and the profile comparison notes in **`reflection.md`**:
 
-[**Model Card**](model_card.md)
+[**Model Card**](model_card.md) · [**Reflection (profile pairs)**](reflection.md)
 
 Write 1 to 2 paragraphs here about what you learned:
 
