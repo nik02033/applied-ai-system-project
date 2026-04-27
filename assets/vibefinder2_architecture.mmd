@@ -1,0 +1,11 @@
+flowchart TD
+    U["User (Streamlit UI)\nfree-text request + optional sliders"] --> A["Retriever\nOllama embeddings\n(cached vectors)"]
+    A --> B["Top-K song docs\n(title/artist/genre/mood/features)"]
+    B --> C["Generator\nOllama chat model\n(prompt + retrieved context)"]
+    B --> D["(Optional) Re-ranker\nVibeFinder 1.0 scoring\non retrieved candidates"]
+    D --> C
+    C --> G["Response\nTop picks + explanations\nSources used"]
+
+    T["Eval harness\nfixed queries + checks"] --> A
+    T --> C
+

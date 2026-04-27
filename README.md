@@ -119,6 +119,10 @@ flowchart TD
     T --> C
 ```
 
+PNG export (saved to `assets/`):
+
+![VibeFinder 2.0 architecture](assets/vibefinder2_architecture.png)
+
 ### Key components
 - **Retriever**: embeds each song “document” and retrieves the most similar songs to the user’s request.
 - **Generator**: writes the final answer but is constrained to use *only* the retrieved songs as its sources.
@@ -295,15 +299,49 @@ One reliability bug I hit early: my evaluator originally expected sources to be 
 
 ---
 
-## Reflection & Ethics (fill with your own voice)
+## Reflection & Ethics
 
-Answer these (short but specific):
-- **Limitations/biases**: what kinds of music requests your small catalog can’t represent; how “genre string mismatch” can bias results; how retrieval might over-emphasize certain artists.
-- **Misuse & mitigation**: how an app like this could be used to stereotype tastes; what guardrails you’d add in a real product (diversity constraints, transparency, opt-outs).
-- **Reliability surprises**: one thing that broke during eval and why.
-- **Collaboration with AI**:
-  - one helpful suggestion you got from AI while building
-  - one flawed/incorrect suggestion and what you did instead
+The biggest limitation in VibeFinder 2.0 is still the dataset: even with an expanded catalog, it’s a small, hand-labeled CSV, so retrieval is biased toward whatever I happened to include more of (and it can’t answer vibes that don’t exist in the data). When a user asks for a rare combination like “melancholic pop but club energy,” the system tends to return the closest neighbors (high-energy pop/EDM) and explain the mismatch instead of finding a perfect match. A second limitation is that embeddings can blur genre boundaries: “hype” and “euphoric” prompts sometimes retrieve similar clusters, which can make different prompts feel repetitive.
+
+This kind of recommender could be misused to stereotype taste (“people like you should listen to…”) or to reinforce filter bubbles. My main mitigations here are transparency and control: the UI shows candidate songs, the model must cite “Sources used,” and I’d add diversity constraints and “show me alternatives” toggles in a real product.
+
+What surprised me in reliability testing was that my first failures were caused by my evaluator, not the model: I originally parsed sources too strictly (dash bullets only), but the model sometimes listed sources inline. Fixing that taught me that evaluation needs to be robust to formatting, and that “looks correct” isn’t the same as “passes a check.”
+
+AI collaboration: using AI was helpful for turning the requirements into a clean pipeline (retrieval → optional re-rank → generation) and for drafting the first pass of the system prompt. A flawed suggestion was an incorrect detail about an Ollama endpoint, which produced a confusing “405 method not allowed” error until I verified the API behavior and corrected it.
+
+---
+
+## Loom Walkthrough Script (5–7 minutes)
+
+**Goal**: show an end-to-end run (2–3 prompts), visible RAG behavior, and reliability/evaluation behavior.
+
+1) **Show the repo + what it is (15–30s)**
+   - Open `README.md` and point to: “VibeFinder 1.0 → VibeFinder 2.0” and the architecture diagram.
+
+2) **Start local dependencies (15–30s)**
+   - Terminal: show `ollama serve` already running (or `ollama list` / `ollama ps`).
+
+3) **Demo prompt #1 (running pop) (60–90s)**
+   - Streamlit UI: enter `Upbeat pop for running, high energy, not too dark.`
+   - Click **Recommend**
+   - Point to:
+     - **Candidates** panel (retrieved set)
+     - **Sources used** in the output
+
+4) **Demo prompt #2 (study lofi) (60–90s)**
+   - Prompt: `Chill lofi for studying. Low energy, more acoustic, minimal vocals.`
+   - Point to how candidates change (more lofi/ambient) and sources are grounded.
+
+5) **Demo prompt #3 (edge case) (45–75s)**
+   - Prompt: `melancholic pop but club energy`
+   - Say 1 sentence about limitations: “closest-match behavior when the catalog has weak coverage.”
+
+6) **Show reliability/evaluation (45–75s)**
+   - Terminal: run `python -m src.eval_rag`
+   - Point to the summary line: **5/5 passed** and the grounding rule (“Sources used” + retrieved titles appear).
+
+7) **Close (10–20s)**
+   - Mention one improvement you’d do next: multi-source retrieval (personal notes) or diversity constraints.
 
 ---
 
