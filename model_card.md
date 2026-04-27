@@ -1,4 +1,40 @@
-# Model Card: Music Recommender Simulation
+# Model Card: VibeFinder (1.0 → 2.0)
+
+## VibeFinder 2.0 (Final Project) — Web RAG Music Recommender
+
+### What it is
+**VibeFinder 2.0** is a Streamlit web app that recommends songs from `data/songs.csv` using **Retrieval‑Augmented Generation (RAG)** with **local Ollama models**. The system retrieves relevant songs first (embeddings), then generates a grounded recommendation that includes a **“Sources used”** section.
+
+### Intended use
+For learning and portfolio demonstration: show how retrieval + ranking + explanation can work together in a small, testable recommender. Not intended for real users or high-stakes decisions.
+
+### How it works (high level)
+1) Convert each song row into a short text “song document”.
+2) Embed song documents with a local embedding model and retrieve top‑K for the user’s prompt.
+3) Generate the final response with a local chat model using only retrieved songs as context.
+4) (Optional) Re-rank retrieved candidates with the original VibeFinder 1.0 scoring for transparency and consistency.
+
+### Data
+The catalog is a small CSV with hand-authored labels and numeric features (genre, mood, energy, tempo, valence, danceability, acousticness). This means the system is only as good as what the catalog contains and how consistent the labels are.
+
+### Strengths
+- Grounded outputs: recommendations are limited to retrieved catalog songs rather than generic music advice.
+- Inspectable behavior: the UI shows candidate songs and the response lists sources used.
+- Simple reliability check: an eval script verifies grounding behavior across fixed prompts.
+
+### Limitations / risks
+- Catalog bias: retrieval can over-represent whatever the catalog has more of (and under-serve missing genres/moods).
+- “Nearest neighbor” problem: if the exact vibe doesn’t exist in the data, the system returns closest matches that can feel off.
+- Explanation risk: the model can produce confident-sounding reasons; grounding helps, but doesn’t guarantee perfect “vibe” alignment.
+
+### Evaluation
+I run `python -m src.eval_rag`, which sends a small set of predefined prompts through retrieval + generation and checks:
+- the response includes “Sources used”
+- at least 3 retrieved song titles appear in the output (grounding)
+
+---
+
+## VibeFinder 1.0 (Original Modules 1–3 project)
 
 ## Model Name
 

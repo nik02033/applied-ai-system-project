@@ -19,3 +19,103 @@ id,title,artist,genre,mood,energy,tempo_bpm,valence,danceability,acousticness
 18,Dust and Smoke,Earl Hollow,blues,melancholic,0.44,72,0.32,0.43,0.83
 19,Wildflower Trail,Fern & Stone,folk,reflective,0.31,76,0.68,0.38,0.94
 20,After Dark,Apex,trap,intense,0.86,140,0.44,0.85,0.07
+21,Golden Hour Jog,Neon Echo,pop,happy,0.80,124,0.78,0.82,0.12
+22,Static Hearts,Indigo Parade,indie pop,moody,0.62,118,0.46,0.74,0.28
+23,Soft Focus,LoRoom,lofi,focused,0.33,74,0.55,0.50,0.84
+24,Candlelight Piano,Clara Voss,classical,peaceful,0.18,62,0.70,0.14,0.99
+25,Velvet Nights,Velvet Tone,r&b,romantic,0.52,90,0.76,0.71,0.38
+26,City Skyline,Orbit Bloom,ambient,serene,0.24,58,0.64,0.28,0.95
+27,Neon Arcade,Voltline,synthwave,dreamy,0.70,112,0.66,0.78,0.18
+28,Downbeat Avenue,Earl Hollow,blues,melancholic,0.40,70,0.30,0.39,0.88
+29,Summer Porch,June Carter Blue,country,nostalgic,0.50,100,0.79,0.63,0.74
+30,Beachside Skank,The Drifters,reggae,carefree,0.56,90,0.84,0.75,0.52
+31,Midnight Espresso,Slow Stereo,jazz,relaxed,0.42,96,0.72,0.56,0.86
+32,Fireline Sprint,Max Pulse,pop,hype,0.92,136,0.83,0.90,0.05
+33,Stonewall Riffs,Deadfall,metal,angry,0.96,182,0.18,0.48,0.04
+34,Quiet Library,Paper Lanterns,lofi,chill,0.28,68,0.58,0.46,0.93
+35,Ocean Glass,Fern & Stone,folk,reflective,0.34,78,0.67,0.36,0.96
+36,Bassline Therapy,Pulse Engine,edm,euphoric,0.94,142,0.86,0.96,0.02
+37,Afterhours Alley,Apex,trap,gritty,0.78,150,0.36,0.82,0.08
+38,Sunroom Daydream,Indigo Parade,indie pop,dreamy,0.58,110,0.74,0.77,0.41
+39,Chill Circuit,Orbit Bloom,ambient,focused,0.30,64,0.60,0.33,0.91
+40,Bluebird Waltz,Clara Voss,classical,serene,0.20,72,0.73,0.12,0.98
+41,Glitter Confetti,Neon Echo,pop,playful,0.76,128,0.90,0.88,0.10
+42,Smoky Room,Slow Stereo,jazz,moody,0.46,88,0.52,0.49,0.82
+43,Highway Thunder,Voltline,rock,intense,0.88,158,0.43,0.62,0.09
+44,Campfire Letters,Fern & Stone,folk,nostalgic,0.38,84,0.72,0.40,0.97
+45,Deep Study Drift,LoRoom,lofi,focused,0.36,76,0.57,0.52,0.81
+46,Sunday Morning,Paper Lanterns,lofi,relaxed,0.31,70,0.66,0.48,0.90
+47,Late Night Texts,Velvet Tone,r&b,moody,0.54,92,0.62,0.72,0.35
+48,Dancefloor Mirage,Pulse Engine,edm,euphoric,0.97,148,0.89,0.98,0.01
+49,Night Market,Cobalt Crew,hip-hop,hype,0.84,98,0.74,0.92,0.07
+50,Quiet Applause,Clara Voss,classical,peaceful,0.16,60,0.68,0.10,0.99
+51,Golden Fields,June Carter Blue,country,reflective,0.46,96,0.77,0.61,0.79
+52,Island Breeze,The Drifters,reggae,relaxed,0.49,86,0.80,0.70,0.61
+53,Broken Neon,Earl Hollow,blues,moody,0.45,74,0.34,0.44,0.85
+54,Starship Cruise,Neon Echo,synthwave,euphoric,0.78,120,0.82,0.86,0.14
+55,Noise Complaint,Deadfall,metal,intense,0.93,176,0.25,0.52,0.06
+56,Streetlight Serenade,Indigo Parade,indie pop,romantic,0.60,116,0.79,0.76,0.48
+57,Deep Work Mode,LoRoom,lofi,focused,0.32,78,0.54,0.47,0.87
+58,Raindrop Window,Paper Lanterns,ambient,chill,0.26,58,0.62,0.30,0.96
+59,Midtempo Groove,Pulse Engine,house,playful,0.74,124,0.83,0.91,0.08
+60,Warehouse Pulse,Apex,techno,tense,0.90,132,0.40,0.88,0.03
+61,Subway Poet,Cobalt Crew,hip-hop,reflective,0.62,92,0.50,0.78,0.18
+62,Midnight Runner,Voltline,rock,hype,0.86,164,0.55,0.64,0.08
+63,Sugar Rush,Neon Echo,k-pop,playful,0.82,126,0.92,0.90,0.06
+64,Sunset Salsa,Luna Roja,latin,carefree,0.76,98,0.88,0.93,0.22
+65,City Afrobeats,Kofi Lights,afrobeat,happy,0.80,104,0.86,0.94,0.19
+66,Skatepark Anthem,Static Youth,punk,angry,0.91,176,0.44,0.68,0.12
+67,Soul Kitchen,Velvet Tone,soul,nostalgic,0.58,86,0.81,0.66,0.55
+68,Disco Dusk,Mirrorball Club,disco,euphoric,0.84,122,0.91,0.95,0.09
+69,Funk on Fifth,Brass Avenue,funk,playful,0.78,112,0.88,0.89,0.24
+70,Quiet Quartz,Orbit Bloom,ambient,peaceful,0.22,56,0.66,0.20,0.97
+71,Stormfront Shred,Deadfall,metal,angry,0.98,190,0.16,0.50,0.02
+72,Indie Sunrise,Indigo Parade,indie pop,happy,0.66,118,0.84,0.80,0.40
+73,Low-Key Latte,Slow Stereo,jazz,relaxed,0.39,92,0.70,0.53,0.87
+74,Nocturne Sketch,Clara Voss,classical,melancholic,0.19,64,0.42,0.09,0.99
+75,Cabin Strings,Fern & Stone,folk,peaceful,0.29,72,0.69,0.32,0.98
+76,Dusty Vinyl,Earl Hollow,blues,reflective,0.41,68,0.38,0.40,0.90
+77,Deep Bass Drop,Pulse Engine,edm,hype,0.99,150,0.78,0.97,0.01
+78,Midnight Trapline,Apex,trap,tense,0.82,146,0.34,0.86,0.06
+79,Lo-Fi Lanterns,Paper Lanterns,lofi,chill,0.30,70,0.61,0.49,0.92
+80,Focus Beacon,LoRoom,lofi,focused,0.37,82,0.56,0.55,0.76
+81,Neon Boulevard,Neon Echo,synthwave,moody,0.73,108,0.48,0.75,0.16
+82,Roadtrip Chorus,June Carter Blue,country,carefree,0.62,108,0.85,0.69,0.66
+83,Romance in Rain,Velvet Tone,r&b,romantic,0.47,80,0.77,0.65,0.50
+84,Island Haze,The Drifters,reggae,nostalgic,0.44,82,0.75,0.66,0.68
+85,Loft Party,Cobalt Crew,hip-hop,playful,0.79,102,0.82,0.93,0.05
+86,Rock the Hills,Voltline,rock,angry,0.90,168,0.39,0.60,0.07
+87,Techno Tunnel,Apex,techno,intense,0.92,138,0.35,0.86,0.03
+88,House of Smiles,Pulse Engine,house,happy,0.77,126,0.90,0.92,0.07
+89,Synth Stardust,Neon Echo,synthwave,dreamy,0.68,114,0.72,0.79,0.20
+90,Ambient Horizon,Orbit Bloom,ambient,reflective,0.27,52,0.58,0.22,0.96
+91,Classical Sunrise,Clara Voss,classical,peaceful,0.21,68,0.76,0.15,0.98
+92,Bluesy Goodbye,Earl Hollow,blues,melancholic,0.38,66,0.28,0.35,0.92
+93,Folk Remedy,Fern & Stone,folk,reflective,0.33,80,0.71,0.37,0.95
+94,Country Moon,June Carter Blue,country,nostalgic,0.52,102,0.78,0.62,0.81
+95,R&B Afterglow,Velvet Tone,r&b,romantic,0.50,88,0.74,0.70,0.42
+96,Reggae Sunset,The Drifters,reggae,carefree,0.58,92,0.86,0.76,0.57
+97,Metal Breaker,Deadfall,metal,intense,0.95,184,0.22,0.53,0.03
+98,Punk Parade,Static Youth,punk,hype,0.88,182,0.61,0.73,0.11
+99,Soulful Steps,Velvet Tone,soul,relaxed,0.55,84,0.79,0.62,0.60
+100,Disco Fever,Mirrorball Club,disco,playful,0.86,124,0.93,0.96,0.08
+101,Funkadelic Avenue,Brass Avenue,funk,happy,0.74,108,0.87,0.88,0.30
+102,Afrobeat Night,Kofi Lights,afrobeat,hype,0.83,110,0.84,0.95,0.18
+103,Latin Lights,Luna Roja,latin,romantic,0.70,96,0.82,0.92,0.26
+104,K-Pop Spark,Neon Echo,k-pop,happy,0.84,128,0.94,0.91,0.05
+105,Reflective Rap,Cobalt Crew,hip-hop,reflective,0.60,88,0.46,0.75,0.20
+106,Drum & Bass Chase,Pulse Engine,drum&bass,intense,0.93,174,0.58,0.89,0.04
+107,Techno Afterparty,Apex,techno,hype,0.94,142,0.42,0.90,0.02
+108,House Chillout,Pulse Engine,house,relaxed,0.62,118,0.80,0.86,0.10
+109,Ambient Study,Orbit Bloom,ambient,focused,0.23,54,0.61,0.18,0.97
+110,Classical Drift,Clara Voss,classical,serene,0.17,58,0.72,0.11,0.99
+111,Indie Lullaby,Indigo Parade,indie pop,peaceful,0.40,92,0.75,0.58,0.70
+112,Pop Confetti,Neon Echo,pop,playful,0.79,130,0.91,0.90,0.09
+113,Rock Reflection,Voltline,rock,reflective,0.58,132,0.52,0.55,0.18
+114,Jazz Blue Hour,Slow Stereo,jazz,melancholic,0.43,82,0.41,0.46,0.84
+115,Blues Porchlight,Earl Hollow,blues,nostalgic,0.47,76,0.44,0.48,0.87
+116,Folk Daybreak,Fern & Stone,folk,happy,0.45,88,0.82,0.42,0.93
+117,Country Highway,June Carter Blue,country,carefree,0.64,112,0.86,0.68,0.60
+118,R&B Moonlight,Velvet Tone,r&b,moody,0.49,78,0.60,0.64,0.47
+119,Reggae Rain,The Drifters,reggae,relaxed,0.46,84,0.78,0.69,0.65
+120,Experimental Sky,Orbit Bloom,experimental,dreamy,0.52,96,0.63,0.40,0.54

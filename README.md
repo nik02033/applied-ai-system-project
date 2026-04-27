@@ -1,8 +1,13 @@
-# 🎵 Music Recommender Simulation
+## 🎵 VibeFinder — from Scoring Simulator to Web RAG App
 
 ## Project Summary
 
-In this project you will build and explain a small music recommender system.
+This repo contains two connected versions of the same idea:
+
+- **Original Modules 1–3 project (VibeFinder 1.0)**: a transparent, content-based music recommender simulation that scores every song in `data/songs.csv` against a user taste profile (genre/mood + energy/valence proximity) and returns the top picks with reasons.
+- **Final project upgrade (VibeFinder 2.0)**: a **Streamlit web app** that uses **Retrieval-Augmented Generation (RAG)** with **local Ollama models** to ground recommendations in retrieved songs from the catalog, then generates a natural-language explanation and “sources used”.
+
+Why it matters: real recommenders blend *retrieval*, *ranking*, and *explanations*. VibeFinder 2.0 makes that pipeline explicit and testable on a small dataset.
 
 Your goal is to:
 
@@ -12,6 +17,8 @@ Your goal is to:
 - Reflect on how this mirrors real world AI recommenders
 
 This simulator (**VibeFinder 1.0**) builds a content-based music recommender that matches songs to a user's taste profile using features like genre, mood, energy, and valence. Given a user's preferences, it scores every song in the catalog and returns the top matches — no behavioral data or other users needed.
+
+VibeFinder 2.0 keeps that “transparent scoring” spirit, but adds a real AI workflow: **retrieve relevant songs first**, then generate a grounded response using only that retrieved context.
 
 ---
 
@@ -95,6 +102,28 @@ flowchart TD
     G --> H["Display with explanations"]
 ```
 
+---
+
+## VibeFinder 2.0 Architecture (Web + RAG)
+
+```mermaid
+flowchart TD
+    U["User (Streamlit UI)\nfree-text request + optional sliders"] --> A["Retriever\nOllama embeddings\n(cached vectors)"]
+    A --> B["Top-K song docs\n(title/artist/genre/mood/features)"]
+    B --> C["Generator\nOllama chat model\n(prompt + retrieved context)"]
+    B --> D["(Optional) Re-ranker\nVibeFinder 1.0 scoring\non retrieved candidates"]
+    D --> C
+    C --> G["Response\nTop picks + explanations\nSources used"]
+
+    T["Eval harness\nfixed queries + checks"] --> A
+    T --> C
+```
+
+### Key components
+- **Retriever**: embeds each song “document” and retrieves the most similar songs to the user’s request.
+- **Generator**: writes the final answer but is constrained to use *only* the retrieved songs as its sources.
+- **Reliability**: `src/eval_rag.py` runs predefined queries and checks output invariants (e.g., “Sources used” exists).
+
 **Potential biases to watch for:**
 
 - Genre dominance — because genre is worth 2.0 points, a perfect genre match with mediocre energy will almost always beat a great energy match in the wrong genre. This could bury genuinely good songs.
@@ -145,10 +174,32 @@ For coursework that asks for **screenshots**, capture your terminal once per pro
 pip install -r requirements.txt
 ```
 
-3. Run the app:
+3. Local model setup (Ollama)
+
+- Install Ollama
+- In one terminal, run:
+
+```bash
+ollama serve
+```
+
+- Pull the default models:
+
+```bash
+ollama pull llama3.2
+ollama pull nomic-embed-text
+```
+
+4. Run VibeFinder 1.0 (CLI):
 
 ```bash
 python -m src.main
+```
+
+5. Run VibeFinder 2.0 (web RAG):
+
+```bash
+python -m streamlit run src/web_app.py
 ```
 
 ### Running Tests
@@ -160,6 +211,40 @@ pytest
 ```
 
 You can add more tests in `tests/test_recommender.py`.
+
+### Running the RAG evaluation harness
+
+This runs a few fixed queries end-to-end and prints a JSON summary (pass/fail + basic stats):
+
+```bash
+python -m src.eval_rag
+```
+
+Copy the printed summary into the **Testing Summary** section below once you’ve run it locally.
+
+---
+
+## Sample Interactions (VibeFinder 2.0)
+
+These are real runs from my local machine. All outputs are grounded in retrieved songs and include “Sources used”.
+
+1) **Running / upbeat pop**
+- **Input**: “Upbeat pop for running, high energy, not too dark.”
+- **Settings**: retrieve top‑k = 8, show top‑k = 5, re-rank = ON
+
+![Running prompt output](assets/vibefinder2_running_pop.png)
+
+2) **Study / chill lofi (acoustic-leaning)**
+- **Input**: “Chill lofi for studying. Low energy, more acoustic, minimal vocals.”
+- **Settings**: retrieve top‑k = 10, show top‑k = 5, re-rank = ON, likes acoustic = ON, target energy ≈ 0.30
+
+![Study prompt output](assets/vibefinder2_study_lofi.png)
+
+3) **Edge case (shows limitations)**
+- **Input**: “melancholic pop but club energy”
+- **Settings**: retrieve top‑k = 12, show top‑k = 5, re-rank = ON, target energy ≈ 0.90, target valence ≈ 0.40
+
+![Edge case prompt output](assets/vibefinder2_edgecase_melancholic_club.png)
 
 ---
 
@@ -196,6 +281,29 @@ Read and complete `model_card.md` and the profile comparison notes in **`reflect
 Recommenders turn **labeled taste + numeric features** into a ranked list by adding weighted points—there is no magic, just rules you chose. This project made that visible: the same song can rank high for different “wrong” reasons if genre and energy overpower mood.
 
 Bias shows up when the **catalog is tiny**, labels do not line up with how people talk about music, or **one feature is worth too much**. Our edge-case profile (melancholic but high energy) surfaced that: the system favored loud pop because the math rewarded genre and energy more than a missing mood match. Real apps add behavior data and guardrails; ours is a deliberate simplification. Full write-up: **[model_card.md](model_card.md)** (including process reflection and non-intended use).
+
+---
+
+## Testing Summary (real results)
+
+Using `python -m src.eval_rag`:
+- **5 out of 5** eval cases passed.
+- The harness checks that responses include **“Sources used”** and that at least **3 retrieved song titles** appear in the output (grounding).
+- **Average retrieval similarity** was **0.766** and per-case runtime ranged from **~10.48s to ~16.42s** on my machine.
+
+One reliability bug I hit early: my evaluator originally expected sources to be formatted as dash bullets, but the model sometimes listed sources inline. I updated the evaluator to check for grounded retrieved titles instead of relying on formatting.
+
+---
+
+## Reflection & Ethics (fill with your own voice)
+
+Answer these (short but specific):
+- **Limitations/biases**: what kinds of music requests your small catalog can’t represent; how “genre string mismatch” can bias results; how retrieval might over-emphasize certain artists.
+- **Misuse & mitigation**: how an app like this could be used to stereotype tastes; what guardrails you’d add in a real product (diversity constraints, transparency, opt-outs).
+- **Reliability surprises**: one thing that broke during eval and why.
+- **Collaboration with AI**:
+  - one helpful suggestion you got from AI while building
+  - one flawed/incorrect suggestion and what you did instead
 
 ---
 
